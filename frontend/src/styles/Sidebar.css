@@ -1,0 +1,43 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  max-width: 200px;
+  height: 100vh;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: #9055ff;
+  color: white;
+}
+
+.sidebar__title {
+  display: flex;
+  height: 10%;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar__user {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.sidebar__name {
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+}
+
+.sidebar__button {
+  text-decoration: none;
+  color: white;
+}
+
+.sidebar__button__container {
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+}
+
+.sidebar__button__text {
+  padding-left: 10px;
+}

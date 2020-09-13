@@ -1,25 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import "./App.css";
+import "./components/Sidebar";
+import Sidebar from "./components/Sidebar";
+import DashboardIcon from "@material-ui/icons/Dashboard";
+import ColorizeIcon from "@material-ui/icons/Colorize";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+
+const items = [
+  { name: "dashboard", label: "Dashboard", icon: <DashboardIcon /> },
+  { name: "medicines", label: "Medicines", icon: <ColorizeIcon /> },
+  { name: "profile", label: "Profile", icon: <AccountCircleIcon /> },
+];
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Switch>
+          <Sidebar items={items} />
+          <Route path="/dashboard"></Route>
+          <Route path="/profile"></Route>
+          <Route path="/medicines">
+            <h1>Medicines</h1>
+          </Route>
+          <Route path="/"></Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
