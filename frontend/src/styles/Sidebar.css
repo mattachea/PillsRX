@@ -1,11 +1,12 @@
 .sidebar {
   display: flex;
   flex-direction: column;
-  max-width: 200px;
+  min-width: 250px;
+  max-width: 350px;
   height: 100vh;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  background-color: #9055ff;
-  color: white;
+  /* background-color: #9055ff; */
+  background-color: #f5f7f6;
 }
 
 .sidebar__title {
@@ -19,6 +20,8 @@
   display: flex;
   justify-content: center;
   flex-direction: row;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .sidebar__name {
@@ -29,7 +32,7 @@
 
 .sidebar__button {
   text-decoration: none;
-  color: white;
+  color: black;
 }
 
 .sidebar__button__container {
@@ -40,4 +43,9 @@
 
 .sidebar__button__text {
   padding-left: 10px;
+}
+
+.sidebar__logout {
+  position: fixed;
+  bottom: 0px;
 }

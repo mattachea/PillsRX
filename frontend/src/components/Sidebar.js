@@ -23,22 +23,20 @@ function Sidebar({ items }) {
       <br />
       <br />
 
-      <div className="sidebar_list">
-        <List>
-          {items.map(({ label, name, icon }) => (
-            <Link className="sidebar__button" to={`/${name}`}>
-              <ListItem key={name} button>
-                <ListItemText>
-                  <div className="sidebar__button__container">
-                    {icon}
-                    <div className="sidebar__button__text">{label}</div>
-                  </div>
-                </ListItemText>
-              </ListItem>
-            </Link>
-          ))}
-        </List>
-      </div>
+      <List>
+        {items.map(({ label, name, icon }) => (
+          <Link className="sidebar__button" to={`/${name}`}>
+            <ListItem key={name} button>
+              <ListItemText>
+                <div className="sidebar__button__container">
+                  {icon}
+                  <div className="sidebar__button__text">{label}</div>
+                </div>
+              </ListItemText>
+            </ListItem>
+          </Link>
+        ))}
+      </List>
     </div>
   );
 }
