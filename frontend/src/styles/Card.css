@@ -2,27 +2,29 @@
   display: flex;
   flex-direction: column;
   width: 250px;
-  height: 250px;
+  height: 100px;
   transition: 0.3s;
   border-radius: 5px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
+  border-radius: 15px;
   padding: 20px;
-}
-
-.card__title__checkbox {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+  background-color: #f1f6fd;
 }
 
 .card__container:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
-.card__button__container {
+.card__info {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card__info__time {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   justify-content: center;
 }

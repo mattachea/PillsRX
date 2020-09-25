@@ -1,33 +1,41 @@
 import React from "react";
 import Card from "./Card";
-import "../styles/Dashboard.css";
+
+import MyModal from "./MyModal";
 
 function Dashboard() {
+  const date = new Date();
+  const dayMonth = date.toLocaleDateString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
   return (
     <div className="dashboard__container">
       <div className="dashboard__title">
         <h1>Dashboard</h1>
+        <h2>{dayMonth}</h2>
       </div>
-      <div className="dashboard__subtitle">
-        <h3>Upcoming</h3>
+
+      <div className="dashboard__medicines">
+        <div className="dashboard__medicine__header">
+          <h2>Medicines</h2>
+
+          <MyModal />
+        </div>
+        <div className="dashboard__grid">
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+        </div>
       </div>
-      <div className="dashboard__grid">
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-      </div>
-      {/* <div class="grid-container grid-container--fill">
-        <div class="grid-element">1</div>
-        <div class="grid-element">2</div>
-        <div class="grid-element">3</div>
-        <div class="grid-element">4</div>
-        <div class="grid-element">5</div>
-        <div class="grid-element">6</div>
-        <div class="grid-element">7</div>
-      </div> */}
+
+      <div className="dashboard__history"></div>
     </div>
   );
 }

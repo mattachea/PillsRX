@@ -1,58 +1,49 @@
 import React from "react";
 import "../styles/Card.css";
 import Checkbox from "@material-ui/core/Checkbox";
-import Button from "@material-ui/core/Button";
-import { makeStyles } from "@material-ui/core/styles";
-import Icon from "@material-ui/core/Icon";
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
+import AccessTimeIcon from "@material-ui/icons/AccessTime";
 
-const useStyles = makeStyles((theme) => ({
-  button: {
-    margin: theme.spacing(1),
-  },
-}));
+const cardInfo = {
+  name: "Advil",
+  dosage: "2 pills",
+  time: "8 am",
+  checked: false,
+};
 
 function Card() {
-  const classes = useStyles();
-  const [checked, setChecked] = React.useState(true);
+  const [checked, setChecked] = React.useState(cardInfo.checked);
+
   const handleChange = (event) => {
     setChecked(event.target.checked);
   };
 
   return (
     <div className="card__container">
-      <div className="card__title__checkbox">
-        <h3> Card 1</h3>
-        <Checkbox
-          checked={checked}
-          onChange={handleChange}
-          inputProps={{ "aria-label": "primary checkbox" }}
-        />
+      <div className="card__info">
+        <h3>{cardInfo.name}</h3>
+        <Checkbox color="primary" checked={checked} onChange={handleChange} />
       </div>
 
-      <p3>
-        a asdf asdf asdfasd fas dfa sdf asdf asd fa f adsfasdf askdljfajs;df
-        jasdfl;ajasdfasdf asdfa sdfadfa dsfads fadf ads
-      </p3>
-      <div className="card__button__container">
-        <Button
-          variant="contained"
-          color="secondary"
-          className={classes.button}
-          startIcon={<DeleteIcon />}
-        >
-          Delete
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          className={classes.button}
-          startIcon={<EditIcon />}
-        >
-          Edit
-        </Button>
+      <br />
+      <div className="card__info">
+        <p>{cardInfo.dosage}</p>
+
+        <div className="card__info__time">
+          <div style={{ paddingRight: "5px", paddingTop: "5px" }}>
+            {<AccessTimeIcon />}
+          </div>
+          <p>{cardInfo.time}</p>
+        </div>
       </div>
+
+      {/* <Button
+        variant="contained"
+        color="primary"
+        className={classes.button}
+        startIcon={<EditIcon />}
+      >
+        Edit
+      </Button> */}
     </div>
   );
 }

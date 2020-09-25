@@ -1,21 +1,27 @@
 .dashboard__container {
-  margin: 30px;
+  /* margin: 30px; */
+  padding: 30px;
   width: 100vw;
-
-  /* background-color: red; */
 }
-/* 
-.dashboard__title {
-} */
 
-.dashboard__subtitle {
-  margin: 20px;
+.dashboard__title {
+}
+
+.dashboard__medicine__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .dashboard__grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-
   grid-gap: 20px;
-  /* margin: 20px; */
+}
+
+.dashboard__medicines {
+  padding: 30px;
+  margin: 30px;
+  border-radius: 10px;
 }
