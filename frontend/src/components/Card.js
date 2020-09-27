@@ -1,38 +1,30 @@
 import React from "react";
+import PropTypes from "prop-types";
 import "../styles/Card.css";
 import Checkbox from "@material-ui/core/Checkbox";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 
-const cardInfo = {
-  name: "Advil",
-  dosage: "2 pills",
-  time: "8 am",
-  checked: false,
-};
-
-function Card() {
-  const [checked, setChecked] = React.useState(cardInfo.checked);
-
-  const handleChange = (event) => {
-    setChecked(event.target.checked);
-  };
-
+function Card(props) {
   return (
     <div className="card__container">
       <div className="card__info">
-        <h3>{cardInfo.name}</h3>
-        <Checkbox color="primary" checked={checked} onChange={handleChange} />
+        <h3>{props.name}</h3>
+        <Checkbox
+          color="primary"
+          checked={props.completed}
+          onChange={props.onClickCheckbox}
+        />
       </div>
 
       <br />
       <div className="card__info">
-        <p>{cardInfo.dosage}</p>
+        <p>{props.dosage}</p>
 
         <div className="card__info__time">
           <div style={{ paddingRight: "5px", paddingTop: "5px" }}>
             {<AccessTimeIcon />}
           </div>
-          <p>{cardInfo.time}</p>
+          <p>{props.time}</p>
         </div>
       </div>
 
@@ -47,5 +39,13 @@ function Card() {
     </div>
   );
 }
+
+Card.propTypes = {
+  onClickCheckbox: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  dosage: PropTypes.string.isRequired,
+  time: PropTypes.string.isRequired,
+  completed: PropTypes.bool.isRequired,
+};
 
 export default Card;

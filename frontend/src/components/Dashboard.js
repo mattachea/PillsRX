@@ -1,7 +1,7 @@
 import React from "react";
-import Card from "./Card";
-
-import MyModal from "./MyModal";
+// import MyModal from "./MyModal";
+import MedicineList from "./MedicineList";
+import "../styles/Dashboard.css";
 
 function Dashboard() {
   const date = new Date();
@@ -22,20 +22,9 @@ function Dashboard() {
       <div className="dashboard__medicines">
         <div className="dashboard__medicine__header">
           <h2>Medicines</h2>
-
-          <MyModal />
         </div>
-        <div className="dashboard__grid">
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-        </div>
+        <MedicineList />
       </div>
-
-      <div className="dashboard__history"></div>
     </div>
   );
 }

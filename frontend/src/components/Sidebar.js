@@ -25,8 +25,8 @@ function Sidebar({ items }) {
 
       <List>
         {items.map(({ label, name, icon }) => (
-          <Link className="sidebar__button" to={`/${name}`}>
-            <ListItem key={name} button>
+          <Link key={name} className="sidebar__button" to={`/${name}`}>
+            <ListItem button>
               <ListItemText>
                 <div className="sidebar__button__container">
                   {icon}
