@@ -1,49 +1,63 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import Card from "./Card";
 import { connect } from "react-redux";
-import { toggleCheckbox } from "../actions/medicineActions";
+import {
+  getMedicines,
+  deleteMedicine,
+  toggleComplete,
+} from "../actions/medicineActions";
 import "../styles/MedicineList.css";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 
-function MedicineList({ medicines, toggleCheckbox }) {
+function MedicineList({
+  getMedicines,
+  medicines,
+  deleteMedicine,
+  toggleComplete,
+}) {
+  //keeps state in this array
+  let { medicinesArray } = medicines;
+
+  //calls getMedicines() once when component mounts
+  useEffect(getMedicines, []);
+
   return (
-    <div className="medicineList__container">
-      {medicines.map((medicine) => (
-        <Card
-          key={medicine.id}
-          onClickCheckbox={() => {
-            toggleCheckbox(medicine.id);
-          }}
-          name={medicine.name}
-          dosage={medicine.dosage}
-          time={medicine.time}
-          completed={medicine.completed}
-        />
+    <TransitionGroup className="medicineList__container">
+      {medicinesArray.map((medicine) => (
+        <CSSTransition key={medicine._id} timeout={250} classNames="fade">
+          <Card
+            key={medicine._id}
+            onClickComplete={() => {
+              toggleComplete(medicine._id);
+            }}
+            onClickDelete={() => {
+              deleteMedicine(medicine._id);
+            }}
+            name={medicine.name}
+            dosage={medicine.dosage}
+            time={medicine.time}
+            completed={medicine.completed}
+          />
+        </CSSTransition>
       ))}
-    </div>
+    </TransitionGroup>
   );
 }
 
 MedicineList.propTypes = {
-  medicines: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      onClickCheckbox: PropTypes.func.isRequired,
-      name: PropTypes.string.isRequired,
-      dosage: PropTypes.string.isRequired,
-      time: PropTypes.string.isRequired,
-      completed: PropTypes.bool.isRequired,
-    }).isRequired
-  ).isRequired,
-  toggleTodo: PropTypes.func.isRequired,
+  medicines: PropTypes.object.isRequired,
+  toggleComplete: PropTypes.func.isRequired,
+  getMedicines: PropTypes.func.isRequired,
+  deleteMedicine: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   medicines: state.medicines,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  toggleCheckbox: (id) => dispatch(toggleCheckbox(id)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(MedicineList);
+export default connect(mapStateToProps, {
+  getMedicines,
+  deleteMedicine,
+  toggleComplete,
+})(MedicineList);

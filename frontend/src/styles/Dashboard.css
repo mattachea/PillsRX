@@ -1,5 +1,4 @@
 .dashboard__container {
-  /* margin: 30px; */
   padding: 30px;
   width: 100vw;
 }
@@ -12,7 +11,5 @@
 }
 
 .dashboard__medicines {
-  padding: 30px;
-  margin: 30px;
-  border-radius: 10px;
+  margin: 60px;
 }

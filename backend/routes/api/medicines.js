@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Medicine = require("../models/medicine.model");
+const Medicine = require("../../models/Medicine");
 
 router.route("/").get((req, res) => {
   Medicine.find()
@@ -8,13 +8,13 @@ router.route("/").get((req, res) => {
 });
 
 router.route("/add").post((req, res) => {
-  const username = req.body.username;
+  const userId = req.body.userId;
   const name = req.body.name;
   const dosage = req.body.dosage;
   const time = req.body.time;
 
   const newMedicine = new Medicine({
-    username,
+    userId,
     name,
     dosage,
     time,

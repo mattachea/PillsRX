@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const User = require("../models/user.model");
+const User = require("../../models/User");
 
 // @route    GET /users
 // @desc     Get all users
@@ -13,7 +13,7 @@ router.route("/").get((req, res) => {
 // @route    POST /users/add
 // @desc     Create a user
 // @access   public
-router.route("/").post((req, res) => {
+router.route("/add").post((req, res) => {
   const username = req.body.username;
   const newUser = new User({ username });
 

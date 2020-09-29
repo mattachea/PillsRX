@@ -1,8 +1,9 @@
 .card__container {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   width: 250px;
-  height: 100px;
+  height: 200px;
   transition: 0.3s;
   border-radius: 5px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -20,6 +21,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  padding-bottom: 10px;
 }
 
 .card__info__time {
@@ -27,4 +29,11 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+}
+
+.card__buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding-bottom: 10px;
 }

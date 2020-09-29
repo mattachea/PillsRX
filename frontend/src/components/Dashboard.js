@@ -1,27 +1,20 @@
 import React from "react";
-// import MyModal from "./MyModal";
-import MedicineList from "./MedicineList";
 import "../styles/Dashboard.css";
 
-function Dashboard() {
-  const date = new Date();
-  const dayMonth = date.toLocaleDateString("en-US", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+import DateTitle from "./DateTitle";
+import MedicineList from "./MedicineList";
+import MyModal from "./MyModal";
 
+function Dashboard() {
   return (
     <div className="dashboard__container">
-      <div className="dashboard__title">
-        <h1>Dashboard</h1>
-        <h2>{dayMonth}</h2>
-      </div>
+      <h1>Dashboard</h1>
+      <DateTitle />
 
       <div className="dashboard__medicines">
         <div className="dashboard__medicine__header">
-          <h2>Medicines</h2>
+          <h3>Medicines</h3>
+          <MyModal />
         </div>
         <MedicineList />
       </div>

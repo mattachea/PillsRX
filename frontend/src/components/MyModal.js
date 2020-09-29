@@ -1,76 +1,98 @@
-import React from "react";
-import Modal from "@material-ui/core/Modal";
-import "../styles/Dashboard.css";
-import { makeStyles } from "@material-ui/core/styles";
-import IconButton from "@material-ui/core/IconButton";
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import { addMedicine } from "../actions/medicineActions";
+import PropTypes from "prop-types";
+import { IconButton } from "@material-ui/core";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
-import TextField from "@material-ui/core/TextField";
+import { v4 as uuid } from "uuid";
+import {
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+} from "reactstrap";
 
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  paper: {
-    // position: "absolute",
-    width: 600,
-    height: 600,
-    backgroundColor: theme.palette.background.paper,
-    outline: 0,
-    boxShadow: theme.shadows[5],
-    borderRadius: "15px",
-    padding: theme.spacing(2, 4, 3),
-  },
-  form: {
-    padding: "10px",
-  },
-}));
+function MyModal(props) {
+  const [open, setOpen] = useState(false);
+  const toggle = () => setOpen(!open);
 
-function MyModal() {
-  const classes = useStyles();
-
-  const [open, setOpen] = React.useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
+  const [form, setForm] = useState({
+    name: "",
+    dosage: "",
+    time: "",
+    completed: false,
+  });
+  const updateField = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
   };
+  const submitForm = (e) => {
+    e.preventDefault();
 
-  const handleClose = () => {
-    setOpen(false);
+    const newMedicine = {
+      _id: uuid(),
+      ...form,
+    };
+    props.addMedicine(newMedicine);
+    toggle();
   };
-
-  const body = (
-    <div className={classes.paper}>
-      <h2 id="simple-modal-title">Add Medicine</h2>
-      <form className={classes.form} noValidate autoComplete="off">
-        <TextField label="Name of Medicine" />
-        <br />
-        <br />
-        <TextField label="Dosage" />
-        <br />
-        <br />
-        <TextField id="time" label="Time" type="time" defaultValue="07:30" />
-      </form>
-    </div>
-  );
 
   return (
     <div>
-      <IconButton
-        color="primary"
-        aria-label="upload picture"
-        component="span"
-        onClick={handleOpen}
-      >
+      <IconButton onClick={toggle}>
         <AddCircleIcon />
       </IconButton>
 
-      <Modal className={classes.modal} open={open} onClose={handleClose}>
-        {body}
+      <Modal isOpen={open} toggle={toggle}>
+        <ModalHeader toggle={toggle}>Add Medicine</ModalHeader>
+        <ModalBody>
+          <Form onSubmit={submitForm}>
+            <FormGroup>
+              <Label>
+                Name:
+                <Input value={form.name} name="name" onChange={updateField} />
+              </Label>
+              <br />
+              <Label>
+                Dosage:
+                <Input
+                  value={form.dosage}
+                  name="dosage"
+                  onChange={updateField}
+                />
+              </Label>
+              <br />
+              <Label>
+                Time:
+                <Input
+                  value={form.time}
+                  name="time"
+                  type="time"
+                  onChange={updateField}
+                />
+              </Label>
+            </FormGroup>
+
+            <Button>Submit</Button>
+          </Form>
+        </ModalBody>
       </Modal>
     </div>
   );
 }
 
-export default MyModal;
+MyModal.propTypes = {
+  addMedicine: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  medicines: state.medicines,
+});
+
+export default connect(mapStateToProps, { addMedicine })(MyModal);
