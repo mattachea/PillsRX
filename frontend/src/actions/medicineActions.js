@@ -18,23 +18,27 @@ export const getMedicines = () => (dispatch) => {
   );
 };
 
-export const addMedicine = (payload) => {
-  return {
-    type: ADD_MEDICINE,
-    payload,
-  };
+export const addMedicine = (newMedicine) => (dispatch) => {
+  axios.post("/api/medicines", newMedicine).then((res) =>
+    dispatch({
+      type: ADD_MEDICINE,
+      payload: res.data,
+    })
+  );
+};
+
+export const deleteMedicine = (id) => (dispatch) => {
+  axios.delete(`/api/medicines/${id}`).then((res) =>
+    dispatch({
+      type: DELETE_MEDICINE,
+      payload: id,
+    })
+  );
 };
 
 export const toggleComplete = (_id) => {
   return {
     type: TOGGLE_COMPLETE,
-    _id,
-  };
-};
-
-export const deleteMedicine = (_id) => {
-  return {
-    type: DELETE_MEDICINE,
     _id,
   };
 };

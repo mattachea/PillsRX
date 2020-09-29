@@ -10,10 +10,10 @@ router.route("/").get((req, res) => {
     .catch((err) => res.status(400).json("Get Users Error: " + err));
 });
 
-// @route    POST /users/add
+// @route    POST /users
 // @desc     Create a user
 // @access   public
-router.route("/add").post((req, res) => {
+router.route("/").post((req, res) => {
   const username = req.body.username;
   const newUser = new User({ username });
 
@@ -31,7 +31,6 @@ router.route("/:id").delete((req, res) => {
     if (err) {
       console.log(err);
     } else {
-      console.log(data);
       return res.json({ success: true });
     }
   });

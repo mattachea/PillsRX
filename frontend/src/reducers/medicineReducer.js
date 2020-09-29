@@ -31,13 +31,13 @@ export default function (state = initialState, action) {
       return {
         ...state,
         medicinesArray: state.medicinesArray.filter(
-          (medicine) => medicine._id !== action._id
+          (medicine) => medicine._id !== action.payload
         ),
       };
 
     case TOGGLE_COMPLETE:
       return state.map((medicine) =>
-        medicine.id === action.id
+        medicine._id === action.payload
           ? { ...medicine, completed: !medicine.completed }
           : medicine
       );

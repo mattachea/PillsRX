@@ -4,7 +4,6 @@ import { addMedicine } from "../actions/medicineActions";
 import PropTypes from "prop-types";
 import { IconButton } from "@material-ui/core";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
-import { v4 as uuid } from "uuid";
 import {
   Button,
   Modal,
@@ -36,7 +35,6 @@ function MyModal(props) {
     e.preventDefault();
 
     const newMedicine = {
-      _id: uuid(),
       ...form,
     };
     props.addMedicine(newMedicine);
