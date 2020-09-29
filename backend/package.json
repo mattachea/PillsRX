@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "server": "nodemon server.js",
-    "frontend": "cd frontend && npm start"
+    "frontend": "cd ../frontend && npm start",
+    "heroku": "NPM_CONFIG_PRODUCTION=false npm install --prefix ../frontend && npm run build --prefix ../frontend"
   },
   "author": "",
   "license": "ISC",
