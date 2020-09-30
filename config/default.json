@@ -1,0 +1,3 @@
+{
+  "mongoAtlasURI": "mongodb+srv://matt:matt@cluster0.pykuf.mongodb.net/data?retryWrites=true&w=majority"
+}
