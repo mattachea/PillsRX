@@ -1,9 +1,9 @@
 const router = require("express").Router();
 const User = require("../../models/User");
+const bcrypt = require("bcrypt");
 
 // @route    GET /users
 // @desc     Get all users
-// @access   public
 router.route("/").get((req, res) => {
   User.find()
     .then((users) => res.json(users))
@@ -12,20 +12,38 @@ router.route("/").get((req, res) => {
 
 // @route    POST /users
 // @desc     Create a user
-// @access   public
 router.route("/").post((req, res) => {
-  const username = req.body.username;
-  const newUser = new User({ username });
+  const { name, email, password } = req.body;
 
-  newUser
-    .save()
-    .then(() => res.json("New user added: " + username))
-    .catch((err) => res.status(400).json("New User Error: " + err));
+  //check for existing user
+  User.findOne({ email: email }, (err, user) => {
+    if (err) {
+      console.log(err);
+    } else if (user) {
+      return res.status(400).json({ msg: "User already exists" });
+    } else {
+      // generate hashed password, create new user, store in database
+      bcrypt.hash(password, 10, (err, hash) => {
+        if (err) {
+          console.log(err);
+        } else {
+          const newUser = new User({
+            name: name,
+            email: email,
+            password: hash,
+          });
+          newUser
+            .save()
+            .then(() => res.json("New user added: " + name))
+            .catch((err) => res.status(400).json("New User Error: " + err));
+        }
+      });
+    }
+  });
 });
 
-// @route     DELETE /users/:id
-// @desc     Create a user
-// @access   public
+// @route    DELETE /users/:id
+// @desc     Delete a user
 router.route("/:id").delete((req, res) => {
   User.findByIdAndDelete(req.params.id, (err, data) => {
     if (err) {

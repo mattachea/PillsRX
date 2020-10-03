@@ -1,10 +1,9 @@
-// import { v4 as uuid } from "uuid";
 import {
   GET_MEDICINES,
   ADD_MEDICINE,
   DELETE_MEDICINE,
   LOADING,
-  TOGGLE_COMPLETE,
+  TOGGLE_COMPLETED,
 } from "../actions/types";
 
 const initialState = {
@@ -35,12 +34,15 @@ export default function (state = initialState, action) {
         ),
       };
 
-    case TOGGLE_COMPLETE:
-      return state.map((medicine) =>
-        medicine._id === action.payload
-          ? { ...medicine, completed: !medicine.completed }
-          : medicine
-      );
+    case TOGGLE_COMPLETED:
+      return {
+        ...state,
+        medicinesArray: state.medicinesArray.map((medicine) =>
+          medicine._id === action.payload.id
+            ? { ...medicine, completed: !action.payload.completed }
+            : medicine
+        ),
+      };
 
     case LOADING:
       return {

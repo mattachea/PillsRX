@@ -7,6 +7,7 @@ const medicineSchema = new Schema(
     name: { type: String, required: true },
     dosage: { type: String, required: true },
     time: { type: String, required: true },
+    completed: { type: Boolean, required: true },
   },
   {
     timestamps: true,

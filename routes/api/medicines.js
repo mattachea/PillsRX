@@ -3,7 +3,6 @@ const Medicine = require("../../models/Medicine");
 
 // @route    GET /medicines
 // @desc     Get all medicines
-// @access   public
 router.route("/").get((req, res) => {
   Medicine.find()
     .then((medicines) => res.json(medicines))
@@ -12,17 +11,12 @@ router.route("/").get((req, res) => {
 
 // @route    POST /medicines
 // @desc     Create a medicine
-// @access   public
 router.route("/").post((req, res) => {
-  const name = req.body.name;
-  const dosage = req.body.dosage;
-  const time = req.body.time;
-
   const newMedicine = new Medicine({
-    // userId,
-    name,
-    dosage,
-    time,
+    name: req.body.name,
+    dosage: req.body.dosage,
+    time: req.body.time,
+    completed: req.body.completed,
   });
 
   newMedicine
@@ -31,9 +25,8 @@ router.route("/").post((req, res) => {
     .catch((err) => res.status(400).json("Medicine Add Error: " + err));
 });
 
-// @route    DELETE /medicine/:id
+// @route    DELETE /medicines/:id
 // @desc     Delete a medicine by id
-// @access   public
 router.route("/:id").delete((req, res) => {
   Medicine.findByIdAndDelete(req.params.id, (err, data) => {
     if (err) {
@@ -42,6 +35,25 @@ router.route("/:id").delete((req, res) => {
       return res.json({ success: true });
     }
   });
+});
+
+// @route    POST /medicines/:id
+// @desc     Toggle completed field of a medicine by id
+
+router.route("/completed/:id").post((req, res) => {
+  Medicine.findByIdAndUpdate(
+    req.params.id,
+    { completed: !req.body.completed },
+    (err, data) => {
+      if (err) {
+        console.log(err);
+      } else {
+        return res.json({
+          success: true,
+        });
+      }
+    }
+  );
 });
 
 module.exports = router;

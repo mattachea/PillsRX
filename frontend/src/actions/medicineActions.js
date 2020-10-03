@@ -4,18 +4,18 @@ import {
   GET_MEDICINES,
   ADD_MEDICINE,
   DELETE_MEDICINE,
-  TOGGLE_COMPLETE,
+  TOGGLE_COMPLETED,
   LOADING,
 } from "./types";
 
 export const getMedicines = () => (dispatch) => {
   dispatch(setLoading());
-  axios.get("/api/medicines").then((res) =>
+  axios.get("/api/medicines").then((res) => {
     dispatch({
       type: GET_MEDICINES,
       payload: res.data,
-    })
-  );
+    });
+  });
 };
 
 export const addMedicine = (newMedicine) => (dispatch) => {
@@ -36,11 +36,15 @@ export const deleteMedicine = (id) => (dispatch) => {
   );
 };
 
-export const toggleComplete = (_id) => {
-  return {
-    type: TOGGLE_COMPLETE,
-    _id,
-  };
+export const toggleCompleted = (id, completed) => (dispatch) => {
+  axios
+    .post(`api/medicines/completed/${id}`, { completed: completed })
+    .then((res) => {
+      dispatch({
+        type: TOGGLE_COMPLETED,
+        payload: { id: id, completed: completed },
+      });
+    });
 };
 
 export const setLoading = () => {

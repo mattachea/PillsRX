@@ -4,7 +4,6 @@ import "../styles/Card.css";
 import { IconButton } from "@material-ui/core";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
-import EditIcon from "@material-ui/icons/Edit";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 
 function Card(props) {
@@ -29,12 +28,10 @@ function Card(props) {
       </div>
 
       <div className="card__buttons">
-        <IconButton>
+        <IconButton onClick={props.onClickCompleted}>
           <CheckCircleOutlineIcon />
         </IconButton>
-        <IconButton>
-          <EditIcon />
-        </IconButton>
+
         <IconButton onClick={props.onClickDelete}>
           <HighlightOffIcon />
         </IconButton>
@@ -44,12 +41,12 @@ function Card(props) {
 }
 
 Card.propTypes = {
-  // onClickCheckbox: PropTypes.func.isRequired,
+  onClickCompleted: PropTypes.func.isRequired,
   onClickDelete: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   dosage: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
-  // completed: PropTypes.bool.isRequired,
+  completed: PropTypes.bool.isRequired,
 };
 
 export default Card;

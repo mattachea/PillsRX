@@ -15,10 +15,12 @@ import {
   Input,
 } from "reactstrap";
 
-function MyModal(props) {
+function AddModal(props) {
+  //modal state
   const [open, setOpen] = useState(false);
-  const toggle = () => setOpen(!open);
+  const toggleModal = () => setOpen(!open);
 
+  //form state
   const [form, setForm] = useState({
     name: "",
     dosage: "",
@@ -38,17 +40,17 @@ function MyModal(props) {
       ...form,
     };
     props.addMedicine(newMedicine);
-    toggle();
+    toggleModal();
   };
 
   return (
     <div>
-      <IconButton onClick={toggle}>
+      <IconButton onClick={toggleModal}>
         <AddCircleIcon />
       </IconButton>
 
-      <Modal isOpen={open} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Add Medicine</ModalHeader>
+      <Modal isOpen={open} toggle={toggleModal}>
+        <ModalHeader toggle={toggleModal}>Add Medicine</ModalHeader>
         <ModalBody>
           <Form onSubmit={submitForm}>
             <FormGroup>
@@ -85,7 +87,7 @@ function MyModal(props) {
   );
 }
 
-MyModal.propTypes = {
+AddModal.propTypes = {
   addMedicine: PropTypes.func.isRequired,
 };
 
@@ -93,4 +95,4 @@ const mapStateToProps = (state) => ({
   medicines: state.medicines,
 });
 
-export default connect(mapStateToProps, { addMedicine })(MyModal);
+export default connect(mapStateToProps, { addMedicine })(AddModal);

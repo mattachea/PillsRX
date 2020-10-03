@@ -3,7 +3,7 @@ import "../styles/Dashboard.css";
 
 import DateTitle from "./DateTitle";
 import MedicineList from "./MedicineList";
-import MyModal from "./MyModal";
+import AddModal from "./AddModal";
 
 function Dashboard() {
   return (
@@ -14,7 +14,7 @@ function Dashboard() {
       <div className="dashboard__medicines">
         <div className="dashboard__medicine__header">
           <h3>Medicines</h3>
-          <MyModal />
+          <AddModal />
         </div>
         <MedicineList />
       </div>

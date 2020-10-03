@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import {
   getMedicines,
   deleteMedicine,
-  toggleComplete,
+  toggleCompleted,
 } from "../actions/medicineActions";
 import "../styles/MedicineList.css";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
@@ -14,30 +14,29 @@ function MedicineList({
   getMedicines,
   medicines,
   deleteMedicine,
-  toggleComplete,
+  toggleCompleted,
 }) {
-  //keeps state in this array
-  let { medicinesArray } = medicines;
-
   //calls getMedicines() once when component mounts
   useEffect(getMedicines, []);
+  //keeps state in this array
+  let { medicinesArray } = medicines;
+  //sorted
+  let sortedMedicinesArray = [...medicinesArray].sort((a, b) =>
+    a.time > b.time ? 1 : -1
+  );
 
   return (
     <TransitionGroup className="medicineList__container">
-      {medicinesArray.map((medicine) => (
-        <CSSTransition key={medicine._id} timeout={250} classNames="fade">
+      {sortedMedicinesArray.map((med) => (
+        <CSSTransition key={med._id} timeout={250} classNames="fade">
           <Card
-            key={medicine._id}
-            onClickComplete={() => {
-              toggleComplete(medicine._id);
-            }}
-            onClickDelete={() => {
-              deleteMedicine(medicine._id);
-            }}
-            name={medicine.name}
-            dosage={medicine.dosage}
-            time={medicine.time}
-            completed={medicine.completed}
+            key={med._id}
+            onClickCompleted={() => toggleCompleted(med._id, med.completed)}
+            onClickDelete={() => deleteMedicine(med._id)}
+            name={med.name}
+            dosage={med.dosage}
+            time={med.time}
+            completed={med.completed}
           />
         </CSSTransition>
       ))}
@@ -47,7 +46,7 @@ function MedicineList({
 
 MedicineList.propTypes = {
   medicines: PropTypes.object.isRequired,
-  toggleComplete: PropTypes.func.isRequired,
+  toggleCompleted: PropTypes.func.isRequired,
   getMedicines: PropTypes.func.isRequired,
   deleteMedicine: PropTypes.func.isRequired,
 };
@@ -59,5 +58,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   getMedicines,
   deleteMedicine,
-  toggleComplete,
+  toggleCompleted,
 })(MedicineList);
