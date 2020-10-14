@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import "./App.css";
 import Login from "./components/Login";
+import Register from "./components/Register";
+
 import Sidebar from "./components/Sidebar";
 import Dashboard from "./components/Dashboard";
 import History from "./components/History";
@@ -24,6 +26,11 @@ function App() {
     <Router>
       <div className="App">
         <Switch>
+          <Route path="/register">
+            <div className="app__container">
+              <Register />
+            </div>
+          </Route>
           <Route path="/login">
             <div className="app__container">
               <Login />

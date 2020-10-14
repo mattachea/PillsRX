@@ -19,21 +19,27 @@ export const getMedicines = () => (dispatch) => {
 };
 
 export const addMedicine = (newMedicine) => (dispatch) => {
-  axios.post("/api/medicines", newMedicine).then((res) =>
-    dispatch({
-      type: ADD_MEDICINE,
-      payload: res.data,
-    })
-  );
+  axios
+    .post("/api/medicines", newMedicine)
+    .then((res) =>
+      dispatch({
+        type: ADD_MEDICINE,
+        payload: res.data,
+      })
+    )
+    .catch((err) => console.log(err));
 };
 
 export const deleteMedicine = (id) => (dispatch) => {
-  axios.delete(`/api/medicines/${id}`).then((res) =>
-    dispatch({
-      type: DELETE_MEDICINE,
-      payload: id,
-    })
-  );
+  axios
+    .delete(`/api/medicines/${id}`)
+    .then((res) =>
+      dispatch({
+        type: DELETE_MEDICINE,
+        payload: id,
+      })
+    )
+    .catch((err) => console.log(err));
 };
 
 export const toggleCompleted = (id, completed) => (dispatch) => {
@@ -44,7 +50,8 @@ export const toggleCompleted = (id, completed) => (dispatch) => {
         type: TOGGLE_COMPLETED,
         payload: { id: id, completed: completed },
       });
-    });
+    })
+    .catch((err) => console.log(err));
 };
 
 export const setLoading = () => {

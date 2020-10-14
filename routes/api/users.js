@@ -12,7 +12,7 @@ router.route("/").get((req, res) => {
 
 // @route    POST /users
 // @desc     Create a user
-router.route("/").post((req, res) => {
+router.route("/").post((req, res, next) => {
   const { name, email, password } = req.body;
 
   //check for existing user
@@ -32,10 +32,15 @@ router.route("/").post((req, res) => {
             email: email,
             password: hash,
           });
+
           newUser
             .save()
-            .then(() => res.json("New user added: " + name))
-            .catch((err) => res.status(400).json("New User Error: " + err));
+            .then((user) => {
+              res.json(user);
+            })
+            .catch((err) => {
+              res.status(400).json({ error: "New User Error: " + err });
+            });
         }
       });
     }
