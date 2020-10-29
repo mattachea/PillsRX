@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { login } from "../actions/userActions";
 import { connect } from "react-redux";
-
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import "../styles/Login.css";
 
 function Login(props) {
-  //form state
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -18,10 +18,13 @@ function Login(props) {
   };
   const submitForm = (e) => {
     e.preventDefault();
-    console.log("trying to login " + form.email + " " + form.password);
+    console.log("trying to login " + form);
+    const user = { ...form };
+    props.login(user);
+    setForm({ email: "", password: "" });
   };
   return (
-    <div>
+    <div className="login">
       <h1>Login</h1>
       <Form onSubmit={submitForm}>
         <FormGroup>
@@ -52,12 +55,12 @@ function Login(props) {
   );
 }
 
-// Login.propTypes = {
-//   // addUser: PropTypes.func.isRequired,
-// };
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = (state) => ({
   users: state.users,
 });
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps, { login })(Login);

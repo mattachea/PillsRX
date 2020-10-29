@@ -1,7 +1,7 @@
 const router = require("express").Router();
-const Medicine = require("../../models/Medicine");
+const Medicine = require("../../database/models/Medicine");
 
-// @route    GET /medicines
+// @route    GET /api/medicines
 // @desc     Get all medicines
 router.route("/").get((req, res) => {
   Medicine.find()
@@ -9,7 +9,7 @@ router.route("/").get((req, res) => {
     .catch((err) => res.status(400).json("Medicine Get Error: " + err));
 });
 
-// @route    POST /medicines
+// @route    POST /api/medicines
 // @desc     Create a medicine
 router.route("/").post((req, res) => {
   const newMedicine = new Medicine({
@@ -25,7 +25,7 @@ router.route("/").post((req, res) => {
     .catch((err) => res.status(400).json("Medicine Add Error: " + err));
 });
 
-// @route    DELETE /medicines/:id
+// @route    DELETE /api/medicines/:id
 // @desc     Delete a medicine by id
 router.route("/:id").delete((req, res) => {
   Medicine.findByIdAndDelete(req.params.id, (err, data) => {

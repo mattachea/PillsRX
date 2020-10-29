@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { addUser } from "../actions/userActions";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import "../styles/Register.css";
 
 function Register(props) {
   //form state
@@ -20,14 +20,12 @@ function Register(props) {
   };
   const submitForm = (e) => {
     e.preventDefault();
-
-    const newUser = {
-      ...form,
-    };
+    const newUser = { ...form };
     props.addUser(newUser);
+    setForm({ name: "", email: "", password: "" });
   };
   return (
-    <div>
+    <div className="register">
       <h1>Register</h1>
       <Form onSubmit={submitForm}>
         <FormGroup>

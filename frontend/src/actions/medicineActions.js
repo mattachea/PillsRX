@@ -44,7 +44,7 @@ export const deleteMedicine = (id) => (dispatch) => {
 
 export const toggleCompleted = (id, completed) => (dispatch) => {
   axios
-    .post(`api/medicines/completed/${id}`, { completed: completed })
+    .post(`/api/medicines/completed/${id}`, { completed: completed })
     .then((res) => {
       dispatch({
         type: TOGGLE_COMPLETED,

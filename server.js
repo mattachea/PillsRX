@@ -1,31 +1,33 @@
+/*  ----------------------------------------   General   ------------------------------------*/
+const port = process.env.PORT || 5000;
 const express = require("express");
 const cors = require("cors");
-const mongoose = require("mongoose");
-const path = require("path");
-const config = require("config");
-
-// require("dotenv").config();
-
 const app = express();
-const port = process.env.PORT || 5000;
-
-app.use(cors());
+app.use(cors({ credentials: true }));
 app.use(express.json());
 
-//Mongoose
-const uri = config.get("mongoURI");
-mongoose.connect(uri, {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
-});
-const connection = mongoose.connection;
-connection.once("open", () => {
-  console.log("MongoDB database connection established successfully");
-});
+/*  ----------------------------------------   MongoDB   ------------------------------------*/
+const mongo = require("./database");
 
-//Routes
+/*  ----------------------------------------   Session   ------------------------------------*/
+const session = require("express-session");
+app.use(
+  session({
+    secret: "mySecret", //random string for hash
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+/*  ----------------------------------------   Passport   -----------------------------------*/
+const passport = require("passport");
+const bcrypt = require("bcryptjs");
+// const cookieParser = require("cookie-parser");
+// app.use(cookieParser());
+app.use(passport.initialize());
+app.use(passport.session());
+
+/*  ----------------------------------------   Routes   -------------------------------------*/
 const usersRouter = require("./routes/api/users");
 const medicinesRouter = require("./routes/api/medicines");
 app.use("/api/users", usersRouter);
@@ -41,6 +43,14 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
+/*  ----------------------------------------   Errors   -------------------------------------*/
+app.use((err, req, res, next) => {
+  console.log("====== ERROR =======");
+  console.error(err.stack);
+  res.status(500);
+});
+
+/*  ----------------------------------------   Server   -------------------------------------*/
 app.listen(port, () => {
   console.log(`Server running on port: ${port}`);
 });

@@ -36,12 +36,13 @@ function App() {
               <Login />
             </div>
           </Route>
-          <Route path="/dashboard">
+          <Route path="/">
             <div className="app__container">
               <Sidebar items={items} />
               <Dashboard />
             </div>
           </Route>
+
           <Route path="/history">
             <div className="app__container">
               <Sidebar items={items} />
@@ -53,10 +54,6 @@ function App() {
               <Sidebar items={items} />
               <Profile />
             </div>
-          </Route>
-
-          <Route path="/">
-            <h1>Landing page for pillsRX</h1>
           </Route>
         </Switch>
       </div>

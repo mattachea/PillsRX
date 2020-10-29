@@ -39,8 +39,9 @@ function AddModal(props) {
     const newMedicine = {
       ...form,
     };
-    props.addMedicine(newMedicine);
-    toggleModal();
+    props.addMedicine(newMedicine); //call addMedicine action
+    setForm({ name: "", dosage: "", time: "", completed: false }); //make form blank
+    toggleModal(); //close the modal
   };
 
   return (
