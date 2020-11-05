@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/Dashboard.css";
-
+import SideBar from "./Sidebar";
 import DateTitle from "./DateTitle";
 import MedicineList from "./MedicineList";
 import AddModal from "./AddModal";

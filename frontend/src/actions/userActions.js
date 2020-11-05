@@ -1,40 +1,45 @@
 import axios from "axios";
 import {
-  GET_USERS,
+  // GET_USERS,
   ADD_USER,
   LOGOUT_USER,
   LOGIN_USER,
-  DELETE_USER,
+  // DELETE_USER,
   LOADING,
 } from "../actions/types";
 
 export const login = (user) => (dispatch) => {
+  console.log("logging in: " + user.username + " " + user.password);
   dispatch(setLoading());
-  console.log(user);
   axios
-    .post("/api/users/login", user)
+    .get("/api/users/login", { params: user })
     .then((res) => {
-      console.log(res.data);
+      // console.log(res);
       dispatch({
         type: LOGIN_USER,
         payload: res.data,
       });
     })
-    .catch((err) => console.log(err + ": failed login"));
+    .catch((err) => console.log(err + ", failed login"));
 };
 
-// export const logout = () => (dispatch) => {
-//   dispatch(setLoading());
-//   axios
-//     .post("/api/users/logout")
-//     .then((res) => {
-//       dispatch({
-//         type: LOGOUT_USER,
-//         payload: res.data,
-//       });
-//     })
-//     .catch((err) => console.log(err));
-// };
+export const logout = () => (dispatch) => {
+  console.log("logging out");
+  dispatch(setLoading());
+  axios
+    .get("/api/users/logout", { withCredentials: true })
+    .then((res) => {
+      console.log(res);
+      dispatch({
+        type: LOGOUT_USER,
+      });
+    })
+    .catch((err) => {
+      console.log("Logout error");
+      console.log(err);
+      throw err;
+    });
+};
 
 export const addUser = (newUser) => (dispatch) => {
   axios

@@ -12,10 +12,23 @@ router.route("/").get((req, res) => {
     .catch((err) => res.status(400).json("Get Users Error: " + err));
 });
 
-// @route    POST /api/users/login
+// @route    GET /api/users/login
 // @desc     Login with a user
-router.route("/login").post(passport.authenticate("local"), (req, res) => {
-  res.send("success: " + req.user);
+router.route("/login").get(passport.authenticate("local"), (req, res) => {
+  res.send(req.user);
+});
+
+// @route    GET /api/users/user
+// @desc     Get user that is logged in
+router.route("/user").get((req, res) => {
+  res.send(req.user);
+});
+
+// @route    POST /api/users/logout
+// @desc     Logout user
+router.get("/logout", (req, res) => {
+  req.logout();
+  res.send("Logout Success");
 });
 
 // @route    POST /api/users/register

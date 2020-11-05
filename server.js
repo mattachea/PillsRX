@@ -7,23 +7,26 @@ app.use(cors({ credentials: true }));
 app.use(express.json());
 
 /*  ----------------------------------------   MongoDB   ------------------------------------*/
-const mongo = require("./database");
+const mongooseConnection = require("./database");
 
 /*  ----------------------------------------   Session   ------------------------------------*/
 const session = require("express-session");
+const MongoStore = require("connect-mongo")(session);
+
 app.use(
   session({
     secret: "mySecret", //random string for hash
     resave: false,
     saveUninitialized: false,
+    store: new MongoStore({ mongooseConnection: mongooseConnection }),
   })
 );
 
 /*  ----------------------------------------   Passport   -----------------------------------*/
 const passport = require("passport");
 const bcrypt = require("bcryptjs");
-// const cookieParser = require("cookie-parser");
-// app.use(cookieParser());
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 

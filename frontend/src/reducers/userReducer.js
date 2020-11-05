@@ -1,10 +1,9 @@
-import { set } from "mongoose";
 import {
-  GET_USERS,
+  // GET_USERS,
   ADD_USER,
   LOGOUT_USER,
   LOGIN_USER,
-  DELETE_USER,
+  // DELETE_USER,
   LOADING,
 } from "../actions/types";
 

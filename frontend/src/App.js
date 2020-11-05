@@ -1,62 +1,52 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
+import { useSelector } from "react-redux";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+  withRouter,
+} from "react-router-dom";
 import "./App.css";
 import Login from "./components/Login";
 import Register from "./components/Register";
-
 import Sidebar from "./components/Sidebar";
 import Dashboard from "./components/Dashboard";
 import History from "./components/History";
 import Profile from "./components/Profile";
-import DashboardIcon from "@material-ui/icons/Dashboard";
-import HealingIcon from "@material-ui/icons/Healing";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-
-const items = [
-  { name: "dashboard", label: "Dashboard", icon: <DashboardIcon /> },
-  { name: "history", label: "Medical History", icon: <HealingIcon /> },
-  { name: "profile", label: "Profile", icon: <AccountCircleIcon /> },
-  { name: "", label: "Log out", icon: <ExitToAppIcon /> },
-];
+import Landing from "./components/Landing";
 
 function App() {
-  return (
-    <Router>
-      <div className="App">
-        <Switch>
-          <Route path="/register">
-            <div className="app__container">
-              <Register />
-            </div>
-          </Route>
-          <Route path="/login">
-            <div className="app__container">
-              <Login />
-            </div>
-          </Route>
-          <Route path="/">
-            <div className="app__container">
-              <Sidebar items={items} />
-              <Dashboard />
-            </div>
-          </Route>
+  const isAuth = useSelector((state) => state.users.isAuthenticated);
 
-          <Route path="/history">
-            <div className="app__container">
-              <Sidebar items={items} />
-              <History />
-            </div>
-          </Route>
-          <Route path="/profile">
-            <div className="app__container">
-              <Sidebar items={items} />
-              <Profile />
-            </div>
-          </Route>
-        </Switch>
-      </div>
+  const AuthRoute = ({ component: Component, ...rest }) => (
+    <Route
+      {...rest}
+      render={(props) =>
+        isAuth === true ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/login",
+              state: { from: props.location },
+            }}
+          />
+        )
+      }
+    />
+  );
+
+  return (
+    <Router className="App">
+      <Switch>
+        <Route exact path="/" component={Landing} />
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/login" component={Login} />
+        <AuthRoute exact path="/dashboard" component={Dashboard} />
+        <AuthRoute exact path="/history" component={History} />
+        <AuthRoute exact path="/profile" component={Profile} />
+      </Switch>
     </Router>
   );
 }
