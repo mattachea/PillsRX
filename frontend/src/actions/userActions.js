@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import {
   // GET_USERS,
   ADD_USER,
@@ -12,9 +13,9 @@ export const login = (user) => (dispatch) => {
   console.log("logging in: " + user.username + " " + user.password);
   dispatch(setLoading());
   axios
-    .get("/api/users/login", { params: user })
+    .get("/api/users/login", { params: user, withCredentials: true })
     .then((res) => {
-      // console.log(res);
+      console.log(res);
       dispatch({
         type: LOGIN_USER,
         payload: res.data,

@@ -1,20 +1,17 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { login } from "../actions/userActions";
-import { connect } from "react-redux";
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
-import { useHistory } from "react-router-dom";
 import "../styles/Login.css";
+import { login } from "../actions/userActions";
+import { connect, useSelector } from "react-redux";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { Redirect } from "react-router-dom";
 
 function Login(props) {
-  // for navigating to different routes
-  let history = useHistory();
+  // get if user logged in from redux store
+  let isAuth = useSelector((state) => state.users.isAuthenticated);
 
   // state for the form
-  const [form, setForm] = useState({
-    username: "",
-    password: "",
-  });
+  const [form, setForm] = useState({ username: "", password: "" });
+
   //update the form state
   const updateField = (e) => {
     setForm({
@@ -22,13 +19,16 @@ function Login(props) {
       [e.target.name]: e.target.value,
     });
   };
+
   // submit the form, call login function, clear form, redirect
   const submitForm = (e) => {
     e.preventDefault();
     props.login({ ...form });
     setForm({ username: "", password: "" });
-    history.push("/dashboard");
   };
+
+  // if user is logged in, redirect to the dashboard
+  if (isAuth) return <Redirect to={"/dashboard"} />;
 
   return (
     <div className="login">
@@ -38,7 +38,7 @@ function Login(props) {
           <Label>
             Username:
             <Input
-              value={form.username}
+              // value={form.username}
               name="username"
               type="string"
               onChange={updateField}
@@ -48,26 +48,22 @@ function Login(props) {
           <Label>
             Password:
             <Input
-              value={form.password}
+              // value={form.password}
               name="password"
               type="password"
               onChange={updateField}
             />
           </Label>
         </FormGroup>
-
         <Button>Submit</Button>
       </Form>
     </div>
   );
 }
 
-Login.propTypes = {
-  login: PropTypes.func.isRequired,
-};
+// const mapStateToProps = (state) => ({
+//   users: state.users,
+// });
+// export default connect(mapStateToProps, { login })(Login);
 
-const mapStateToProps = (state) => ({
-  users: state.users,
-});
-
-export default connect(mapStateToProps, { login })(Login);
+export default connect(null, { login })(Login);

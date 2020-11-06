@@ -17,25 +17,28 @@ import Profile from "./components/Profile";
 import Landing from "./components/Landing";
 
 function App() {
-  const isAuth = useSelector((state) => state.users.isAuthenticated);
+  let isAuth = useSelector((state) => state.users.isAuthenticated);
+  console.log(isAuth);
 
-  const AuthRoute = ({ component: Component, ...rest }) => (
-    <Route
-      {...rest}
-      render={(props) =>
-        isAuth === true ? (
-          <Component {...props} />
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/login",
-              state: { from: props.location },
-            }}
-          />
-        )
-      }
-    />
-  );
+  const AuthRoute = ({ component: Component, ...rest }) => {
+    return (
+      <Route
+        {...rest}
+        render={(props) =>
+          isAuth === true ? (
+            <Component {...props} />
+          ) : (
+            <Redirect
+              to={{
+                pathname: "/login",
+                state: { from: props.location },
+              }}
+            />
+          )
+        }
+      />
+    );
+  };
 
   return (
     <Router className="App">
@@ -44,8 +47,13 @@ function App() {
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
         <AuthRoute exact path="/dashboard" component={Dashboard} />
-        <AuthRoute exact path="/history" component={History} />
-        <AuthRoute exact path="/profile" component={Profile} />
+        {/* <AuthRoute exact path="/history" component={History} />
+        <AuthRoute exact path="/profile" component={Profile} /> */}
+        {/* {isAuth ? (
+          <Route exact path="/dashboard" component={Dashboard} />
+        ) : (
+          <Route exact path="/login" component={Login} />
+        )} */}
       </Switch>
     </Router>
   );
