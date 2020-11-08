@@ -3,17 +3,17 @@ import "../styles/Login.css";
 import { login } from "../actions/userActions";
 import { connect, useSelector } from "react-redux";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 function Login(props) {
+  //history for react router
   let history = useHistory();
 
   // get if user logged in from redux store
   let authError = useSelector((state) => state.users.error);
 
+  //form state
   const [form, setForm] = useState({ username: "", password: "" });
-
-  //update the form state
   const updateField = (e) => {
     setForm({
       ...form,
@@ -24,11 +24,10 @@ function Login(props) {
   // submit the form, call login function, clear form, go to dashboard
   const submitForm = (e) => {
     e.preventDefault();
-
+    setForm({ username: "", password: "" });
     props.login({ ...form }, () => {
       history.push("/dashboard");
     });
-    setForm({ username: "", password: "" });
   };
 
   return (
@@ -62,5 +61,4 @@ function Login(props) {
     </div>
   );
 }
-
 export default connect(null, { login })(Login);

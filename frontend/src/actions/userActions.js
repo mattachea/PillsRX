@@ -15,7 +15,6 @@ export const login = (user, cb) => (dispatch) => {
   axios
     .get("/api/users/login", { params: user, withCredentials: true })
     .then((res) => {
-      console.log(res);
       dispatch({
         type: LOGIN_USER,
         payload: res.data,
@@ -29,12 +28,10 @@ export const login = (user, cb) => (dispatch) => {
 };
 
 export const logout = () => (dispatch) => {
-  console.log("logging out");
   dispatch(setLoading());
   axios
     .get("/api/users/logout", { withCredentials: true })
     .then((res) => {
-      console.log(res);
       dispatch({
         type: LOGOUT_USER,
       });
