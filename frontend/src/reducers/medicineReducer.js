@@ -2,7 +2,7 @@ import {
   GET_MEDICINES,
   ADD_MEDICINE,
   DELETE_MEDICINE,
-  LOADING,
+  LOADING_MEDICINE,
   TOGGLE_COMPLETED,
 } from "../actions/types";
 
@@ -44,7 +44,7 @@ export default function (state = initialState, action) {
         ),
       };
 
-    case LOADING:
+    case LOADING_MEDICINE:
       return {
         ...state,
         loading: true,

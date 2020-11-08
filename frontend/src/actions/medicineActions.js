@@ -5,7 +5,7 @@ import {
   ADD_MEDICINE,
   DELETE_MEDICINE,
   TOGGLE_COMPLETED,
-  LOADING,
+  LOADING_MEDICINE,
 } from "./types";
 
 export const getMedicines = () => (dispatch) => {
@@ -56,6 +56,6 @@ export const toggleCompleted = (id, completed) => (dispatch) => {
 
 export const setLoading = () => {
   return {
-    type: LOADING,
+    type: LOADING_MEDICINE,
   };
 };

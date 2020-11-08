@@ -4,7 +4,8 @@ import {
   LOGOUT_USER,
   LOGIN_USER,
   // DELETE_USER,
-  LOADING,
+  AUTH_ERROR,
+  LOADING_USER,
 } from "../actions/types";
 
 const initialState = {
@@ -12,10 +13,17 @@ const initialState = {
   user: null,
   isAuthenticated: false,
   loading: false,
+  error: "",
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
+    case AUTH_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+      };
     case ADD_USER:
       return {
         ...state,
@@ -27,6 +35,7 @@ export default function (state = initialState, action) {
         user: action.payload,
         isAuthenticated: true,
         loading: false,
+        error: "",
       };
     case LOGOUT_USER:
       return {
@@ -34,6 +43,11 @@ export default function (state = initialState, action) {
         user: null,
         isAuthenticated: false,
         loading: false,
+      };
+    case LOADING_USER:
+      return {
+        ...state,
+        loading: true,
       };
     // case GET_USERS:
     //   return {
@@ -48,11 +62,7 @@ export default function (state = initialState, action) {
     //       (user) => user._id !== action.payload
     //     ),
     //   };
-    case LOADING:
-      return {
-        ...state,
-        loading: true,
-      };
+
     default:
       return state;
   }

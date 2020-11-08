@@ -1,4 +1,5 @@
 /*  ----------------------------------------   General   ------------------------------------*/
+const config = require("config");
 const port = process.env.PORT || 5000;
 const express = require("express");
 const cors = require("cors");
@@ -11,30 +12,24 @@ const mongooseConnection = require("./database");
 
 /*  ----------------------------------------   Session   ------------------------------------*/
 const session = require("express-session");
-const MongoStore = require("connect-mongo")(session);
-
+const flash = require("connect-flash");
+app.use(flash());
 app.use(
   session({
-    secret: "mySecret", //random string for hash
+    secret: config.get("sessionSecret"),
     resave: false,
     saveUninitialized: false,
-    store: new MongoStore({ mongooseConnection: mongooseConnection }),
   })
 );
 
 /*  ----------------------------------------   Passport   -----------------------------------*/
 const passport = require("passport");
-const bcrypt = require("bcryptjs");
-const cookieParser = require("cookie-parser");
-app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 
 /*  ----------------------------------------   Routes   -------------------------------------*/
-const usersRouter = require("./routes/api/users");
-const medicinesRouter = require("./routes/api/medicines");
-app.use("/api/users", usersRouter);
-app.use("/api/medicines", medicinesRouter);
+app.use("/api/users", require("./routes/api/users"));
+app.use("/api/medicines", require("./routes/api/medicines"));
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {

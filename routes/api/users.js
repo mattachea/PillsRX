@@ -4,6 +4,15 @@ const User = require("../../database/models/User");
 const bcrypt = require("bcrypt");
 const passport = require("../../passport");
 
+// const checkAuthenticated = (res, req, next) => {
+//   if (req.isAuthenticated) return next();
+//   else res.redirect("/");
+// };
+// const checkNotAuthenticated = (res, req, next) => {
+//   if (!req.isAuthenticated) return next();
+//   else res.redirect("/");
+// };
+
 // @route    GET /api/users
 // @desc     Get all users
 router.route("/").get((req, res) => {
@@ -14,8 +23,27 @@ router.route("/").get((req, res) => {
 
 // @route    GET /api/users/login
 // @desc     Login with a user
-router.route("/login").get(passport.authenticate("local"), (req, res) => {
-  res.send(req.user);
+// router.route("/login").get(passport.authenticate("local"), (req, res) => {
+//   res.send(req.user);
+// });
+router.get("/login", (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) {
+      console.log("here");
+      return next(err);
+    }
+    if (!user) {
+      return res.status(401).json({ message: "Incorrect login credentials" });
+    }
+    req.logIn(user, (err) => {
+      if (err) {
+        console.log("what");
+
+        return next(err);
+      }
+      return res.status(200).json(user);
+    });
+  })(req, res, next);
 });
 
 // @route    GET /api/users/user

@@ -3,13 +3,14 @@ import "../styles/Login.css";
 import { login } from "../actions/userActions";
 import { connect, useSelector } from "react-redux";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 
 function Login(props) {
-  // get if user logged in from redux store
-  let isAuth = useSelector((state) => state.users.isAuthenticated);
+  let history = useHistory();
 
-  // state for the form
+  // get if user logged in from redux store
+  let authError = useSelector((state) => state.users.error);
+
   const [form, setForm] = useState({ username: "", password: "" });
 
   //update the form state
@@ -20,15 +21,15 @@ function Login(props) {
     });
   };
 
-  // submit the form, call login function, clear form, redirect
+  // submit the form, call login function, clear form, go to dashboard
   const submitForm = (e) => {
     e.preventDefault();
-    props.login({ ...form });
+
+    props.login({ ...form }, () => {
+      history.push("/dashboard");
+    });
     setForm({ username: "", password: "" });
   };
-
-  // if user is logged in, redirect to the dashboard
-  if (isAuth) return <Redirect to={"/dashboard"} />;
 
   return (
     <div className="login">
@@ -38,7 +39,7 @@ function Login(props) {
           <Label>
             Username:
             <Input
-              // value={form.username}
+              value={form.username}
               name="username"
               type="string"
               onChange={updateField}
@@ -48,22 +49,18 @@ function Login(props) {
           <Label>
             Password:
             <Input
-              // value={form.password}
+              value={form.password}
               name="password"
               type="password"
               onChange={updateField}
             />
           </Label>
         </FormGroup>
+        {authError && <p>{authError}</p>}
         <Button>Submit</Button>
       </Form>
     </div>
   );
 }
-
-// const mapStateToProps = (state) => ({
-//   users: state.users,
-// });
-// export default connect(mapStateToProps, { login })(Login);
 
 export default connect(null, { login })(Login);
