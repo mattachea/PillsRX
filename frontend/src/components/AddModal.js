@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { addMedicine } from "../actions/medicineActions";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { IconButton } from "@material-ui/core";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import {
@@ -16,6 +16,7 @@ import {
 } from "reactstrap";
 
 function AddModal(props) {
+  const user = useSelector((state) => state.users.user);
   //modal state
   const [open, setOpen] = useState(false);
   const toggleModal = () => setOpen(!open);
@@ -38,6 +39,7 @@ function AddModal(props) {
 
     const newMedicine = {
       ...form,
+      userId: user._id,
     };
     props.addMedicine(newMedicine); //call addMedicine action
     setForm({ name: "", dosage: "", time: "", completed: false }); //make form blank

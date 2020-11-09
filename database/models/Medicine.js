@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const medicineSchema = new Schema(
   {
-    // userId: { type: String, required: true },
+    userId: { type: String, required: true },
     name: { type: String, required: true },
     dosage: { type: String, required: true },
     time: { type: String, required: true },

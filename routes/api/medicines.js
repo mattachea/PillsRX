@@ -13,6 +13,7 @@ router.route("/").get((req, res) => {
 // @desc     Create a medicine
 router.route("/").post((req, res) => {
   const newMedicine = new Medicine({
+    userId: req.body.userId,
     name: req.body.name,
     dosage: req.body.dosage,
     time: req.body.time,

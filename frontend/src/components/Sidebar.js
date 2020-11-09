@@ -45,7 +45,7 @@ function Sidebar(props) {
 
       <List>
         {items.map((item) => (
-          <Link key={item.to} className="sidebar__button" to={item.to}>
+          <Link key={item.label} className="sidebar__button" to={item.to}>
             <ListItem>
               <ListItemText>
                 <div
