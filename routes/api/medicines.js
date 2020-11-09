@@ -2,10 +2,12 @@ const router = require("express").Router();
 const Medicine = require("../../database/models/Medicine");
 
 // @route    GET /api/medicines
-// @desc     Get all medicines
-router.route("/").get((req, res) => {
-  Medicine.find()
-    .then((medicines) => res.json(medicines))
+// @desc     Get all medicines for user with userId
+router.route("/:userId").get((req, res) => {
+  Medicine.find({ userId: req.params.userId })
+    .then((medicines) => {
+      res.json(medicines);
+    })
     .catch((err) => res.status(400).json("Medicine Get Error: " + err));
 });
 

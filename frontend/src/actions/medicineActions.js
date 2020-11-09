@@ -8,9 +8,9 @@ import {
   LOADING_MEDICINE,
 } from "./types";
 
-export const getMedicines = () => (dispatch) => {
+export const getMedicines = (userId) => (dispatch) => {
   dispatch(setLoading());
-  axios.get("/api/medicines").then((res) => {
+  axios.get(`/api/medicines/${userId}`).then((res) => {
     dispatch({
       type: GET_MEDICINES,
       payload: res.data,
@@ -21,12 +21,12 @@ export const getMedicines = () => (dispatch) => {
 export const addMedicine = (newMedicine) => (dispatch) => {
   axios
     .post("/api/medicines", newMedicine)
-    .then((res) =>
+    .then((res) => {
       dispatch({
         type: ADD_MEDICINE,
         payload: res.data,
-      })
-    )
+      });
+    })
     .catch((err) => console.log(err));
 };
 

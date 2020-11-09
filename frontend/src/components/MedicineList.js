@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import Card from "./Card";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import {
   getMedicines,
   deleteMedicine,
@@ -16,8 +16,9 @@ function MedicineList({
   deleteMedicine,
   toggleCompleted,
 }) {
+  const user = useSelector((state) => state.users.user);
   //calls getMedicines() once when component mounts
-  useEffect(getMedicines, []);
+  useEffect(() => getMedicines(user._id), [getMedicines, user._id]);
   //keeps state in this array
   let { medicinesArray } = medicines;
   //sorted
