@@ -1,3 +1,7 @@
+.main__container {
+  padding: 1rem;
+}
+
 .medicineList__container {
   /* background-color: red; */
   display: grid;

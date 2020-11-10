@@ -18,8 +18,8 @@ import { logout } from "../actions/userActions";
 function Sidebar(props) {
   const items = [
     { to: "dashboard", label: "Dashboard", icon: <DashboardIcon /> },
-    { to: "history", label: "Medical History", icon: <HealingIcon /> },
-    { to: "profile", label: "Profile", icon: <AccountCircleIcon /> },
+    // { to: "history", label: "Medical History", icon: <HealingIcon /> },
+    // { to: "profile", label: "Profile", icon: <AccountCircleIcon /> },
     {
       to: "dashboard",
       label: "Log out",
