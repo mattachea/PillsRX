@@ -7,7 +7,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import "./App.css";
-import Sidebar from "./components/Sidebar";
+import Navbar from "./components/Navbar";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Dashboard from "./components/Dashboard";
@@ -40,17 +40,15 @@ function App() {
 
   return (
     <Router className="App">
-      <div className="app__container">
-        {isAuth && <Sidebar />}
-        <Switch>
-          <Route exact path="/" component={Landing} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/login" component={Login} />
-          <AuthRoute exact path="/dashboard" component={Dashboard} />
-          <AuthRoute exact path="/history" component={History} />
-          <AuthRoute exact path="/profile" component={Profile} />
-        </Switch>
-      </div>
+      <Navbar />
+      <Switch>
+        <Route exact path="/" component={Landing} />
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/login" component={Login} />
+        <AuthRoute exact path="/dashboard" component={Dashboard} />
+        <AuthRoute exact path="/history" component={History} />
+        <AuthRoute exact path="/profile" component={Profile} />
+      </Switch>
     </Router>
   );
 }
