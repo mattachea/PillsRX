@@ -23,7 +23,11 @@ export default function Landing() {
         </Button>
       </div>
 
-      <img className="image" src={`assets/images/landingImage.png`} />
+      <img
+        className="image"
+        src={`assets/images/landingImage.png`}
+        alt="prescription"
+      />
     </div>
   );
 }

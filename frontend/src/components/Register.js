@@ -26,37 +26,44 @@ function Register(props) {
   };
   return (
     <div className="register">
-      <h1>Register</h1>
-      <Form onSubmit={submitForm}>
-        <FormGroup>
-          <Label>
-            Name:
-            <Input value={form.name} name="name" onChange={updateField} />
-          </Label>
-          <br />
-          <Label>
-            Email:
-            <Input
-              value={form.email}
-              name="email"
-              type="email"
-              onChange={updateField}
-            />
-          </Label>
-          <br />
-          <Label>
-            Password:
-            <Input
-              value={form.password}
-              name="password"
-              type="password"
-              onChange={updateField}
-            />
-          </Label>
-        </FormGroup>
+      <div className="myborder">
+        <h2>Sign up</h2>
+        <Form onSubmit={submitForm}>
+          <FormGroup>
+            <Label>
+              Name:
+              <Input value={form.name} name="name" onChange={updateField} />
+            </Label>
+            <br />
+            <Label>
+              Email:
+              <Input
+                value={form.email}
+                name="email"
+                type="email"
+                onChange={updateField}
+              />
+            </Label>
+            <br />
+            <Label>
+              Password:
+              <Input
+                value={form.password}
+                name="password"
+                type="password"
+                onChange={updateField}
+              />
+            </Label>
+          </FormGroup>
 
-        <Button>Submit</Button>
-      </Form>
+          <Button style={{ backgroundColor: "#2F80ED" }}>Submit</Button>
+        </Form>
+      </div>
+      <img
+        className="image"
+        src={`assets/images/landingImage.png`}
+        alt="prescription"
+      />
     </div>
   );
 }

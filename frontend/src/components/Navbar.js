@@ -24,7 +24,6 @@ function Navbar(props) {
     <div className="navbar">
       <div className="title">
         <Link
-          key="title"
           className="item"
           to={isAuthenticated ? "dashboard" : ""}
           onClick={closeOnClick}
@@ -43,6 +42,7 @@ function Navbar(props) {
                 className={isOpen ? "item active" : "item"}
                 to={"dashboard"}
                 onClick={closeOnClick}
+                key="dashboard"
               >
                 Dashboard
               </Link>,
@@ -50,6 +50,7 @@ function Navbar(props) {
                 className={isOpen ? "item active" : "item"}
                 to={""}
                 onClick={logout}
+                key="home"
               >
                 Logout
               </Link>,
@@ -59,6 +60,7 @@ function Navbar(props) {
                 className={isOpen ? "item active" : "item"}
                 to={"login"}
                 onClick={closeOnClick}
+                key="login"
               >
                 Login
               </Link>,
@@ -66,6 +68,7 @@ function Navbar(props) {
                 className={isOpen ? "item active" : "item"}
                 to={"register"}
                 onClick={closeOnClick}
+                key="register"
               >
                 Signup
               </Link>,
