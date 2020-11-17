@@ -26,7 +26,7 @@ function Navbar(props) {
         <Link
           key="title"
           className="item"
-          to="dashboard"
+          to={isAuthenticated ? "dashboard" : ""}
           onClick={closeOnClick}
         >
           RemindRx
@@ -37,32 +37,39 @@ function Navbar(props) {
       </div>
 
       <div className={isOpen ? "menu active" : "menu"}>
-        {isAuthenticated && (
-          <Link
-            className={isOpen ? "item active" : "item"}
-            to={"dashboard"}
-            onClick={closeOnClick}
-          >
-            Dashboard
-          </Link>
-        )}
-        {isAuthenticated ? (
-          <Link
-            className={isOpen ? "item active" : "item"}
-            to={""}
-            onClick={logout}
-          >
-            Logout
-          </Link>
-        ) : (
-          <Link
-            className={isOpen ? "item active" : "item"}
-            to={"login"}
-            onClick={closeOnClick}
-          >
-            Login
-          </Link>
-        )}
+        {isAuthenticated
+          ? [
+              <Link
+                className={isOpen ? "item active" : "item"}
+                to={"dashboard"}
+                onClick={closeOnClick}
+              >
+                Dashboard
+              </Link>,
+              <Link
+                className={isOpen ? "item active" : "item"}
+                to={""}
+                onClick={logout}
+              >
+                Logout
+              </Link>,
+            ]
+          : [
+              <Link
+                className={isOpen ? "item active" : "item"}
+                to={"login"}
+                onClick={closeOnClick}
+              >
+                Login
+              </Link>,
+              <Link
+                className={isOpen ? "item active" : "item"}
+                to={"register"}
+                onClick={closeOnClick}
+              >
+                Signup
+              </Link>,
+            ]}
       </div>
     </div>
   );
