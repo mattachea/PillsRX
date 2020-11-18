@@ -1,15 +1,25 @@
-.dashboard__container {
-  padding: 30px;
+.dashboard_container {
   width: 100vw;
-}
-
-.dashboard__medicine__header {
   display: flex;
   flex-direction: row;
-  align-items: center;
-  margin-bottom: 20px;
+  justify-content: space-between;
+}
+.dashboard_info {
+  padding: 0rem 2rem;
 }
 
-.dashboard__medicines {
-  margin: 60px;
+.todos_container {
+  width: 100%;
+  padding: 2rem;
+}
+
+.medicines_container {
+  display: inline;
+  padding: 2rem;
+}
+
+@media screen and (max-width: 960px) {
+  .medicines_container {
+    display: none;
+  }
 }

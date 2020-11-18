@@ -57,7 +57,7 @@ function Login(props) {
             </Label>
           </FormGroup>
           {authError && <p>{authError}</p>}
-          <Button style={{ backgroundColor: "#2F80ED" }}>Submit</Button>
+          <Button color="primary">Submit</Button>
         </Form>
       </div>
       <img

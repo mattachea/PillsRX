@@ -56,7 +56,7 @@ function Register(props) {
             </Label>
           </FormGroup>
 
-          <Button style={{ backgroundColor: "#2F80ED" }}>Submit</Button>
+          <Button color="primary">Submit</Button>
         </Form>
       </div>
       <img

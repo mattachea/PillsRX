@@ -46,6 +46,18 @@ function Navbar(props) {
               >
                 Dashboard
               </Link>,
+
+              //conditionally render medicines tab if in mobile version
+              !props.isDesktop && (
+                <Link
+                  className={isOpen ? "item active" : "item"}
+                  to={"medicines"}
+                  onClick={closeOnClick}
+                  key="medicines"
+                >
+                  Medicines
+                </Link>
+              ),
               <Link
                 className={isOpen ? "item active" : "item"}
                 to={""}
