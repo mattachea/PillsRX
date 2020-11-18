@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import "../styles/Dashboard.css";
 import DateTitle from "./DateTitle";
 import Todo from "./Todo";
@@ -39,7 +39,9 @@ function Dashboard({ medicines, getMedicines, toggleCompleted, isDesktop }) {
           {upcomingArray.length !== 0 && (
             <Todo medicinesArray={upcomingArray} isDesktop={isDesktop} />
           )}
-          <AddModal />
+          <div className="add_medicine">
+            <AddModal />
+          </div>
         </div>
       </div>
 

@@ -1,4 +1,18 @@
 .medicines_page {
   border-left: 1px solid #d9d9d9;
-  /* padding-top: 4rem; */
+  min-width: 20vw;
+  padding-top: 2rem;
+}
+
+.medicines_header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem;
+}
+
+.medicines_list {
+  display: flex;
+  flex-direction: column;
 }

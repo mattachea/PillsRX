@@ -1,11 +1,11 @@
 import React from "react";
-import "../styles/Card.css";
+import "../styles/TodoCard.css";
 import { IconButton } from "@material-ui/core";
 import { Button } from "reactstrap";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 
-export default function Card(props) {
+export default function TodoCard(props) {
   return (
     <div className="card__container">
       <div className="card__info">

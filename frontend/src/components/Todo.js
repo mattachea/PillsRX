@@ -1,5 +1,5 @@
 import React from "react";
-import Card from "./Card";
+import TodoCard from "./TodoCard";
 import { connect } from "react-redux";
 import { deleteMedicine, toggleCompleted } from "../actions/medicineActions";
 import "../styles/Todo.css";
@@ -10,7 +10,7 @@ function Todo({ medicinesArray, deleteMedicine, toggleCompleted, isDesktop }) {
     <TransitionGroup className="cards">
       {medicinesArray.map((med) => (
         <CSSTransition key={med._id} timeout={250} classNames="fade">
-          <Card
+          <TodoCard
             key={med._id}
             onClickCompleted={() => toggleCompleted(med._id, med.completed)}
             onClickDelete={() => deleteMedicine(med._id)}
